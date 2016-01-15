@@ -14,5 +14,12 @@
 #along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 CFLAGS = -O2
+prefix = /usr/local
+
 daemon: daemon.c xarray.c
 	gcc -std=c11 -Wall -pedantic -D_XOPEN_SOURCE $(CFLAGS) $^ -o $@
+
+.PHONY: install
+install: daemon
+	mkdir -p $(prefix)/bin
+	install $< $(prefix)/bin
