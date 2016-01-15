@@ -1,0 +1,5 @@
+daemon - Run a command as a daemon
+
+FNAR I wrote this program which will run a command daemonized, which is to say
+it redirects I/O to /dev/null and sets PID 1 as parent (detaching from parent
+terminal or whatever).
