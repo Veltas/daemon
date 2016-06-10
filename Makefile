@@ -13,13 +13,19 @@
 #You should have received a copy of the GNU General Public License
 #along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
-CFLAGS = -O2
+CSTD = c90
+CWARN = -Wall -W -pedantic
+
+CFLAGS = -std=$(CSTD) $(CWARN) -D_XOPEN_SOURCE -O2
 prefix = /usr/local
 
-daemon: daemon.c xarray.c
-	gcc -std=c11 -Wall -pedantic -D_XOPEN_SOURCE $(CFLAGS) $^ -o $@
+daemon: xarray.o
 
 .PHONY: install
 install: daemon
 	mkdir -p $(prefix)/bin
-	install $< $(prefix)/bin
+	install daemon $(prefix)/bin
+
+.PHONY: clean
+clean:
+	rm -f daemon *.o
